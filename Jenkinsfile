@@ -29,7 +29,8 @@ pipeline {
                 script {
                     def scannerHome = tool 'sonarqube_scanner'
                     withSonarQubeEnv('SonarQubeServer') {
-                        "/home/azureuser/sonar-scanner/bin/sonar-scanner -X"
+                        // SonarScanner 실행 명령에 -X 옵션 추가
+                        sh "${scannerHome}/bin/sonar-scanner -X"
                     }
                 }
             }
