@@ -58,7 +58,7 @@ pipeline {
                             url: 'https://github.com/rlozi99/front_gitops'
                     }
                 }
-        stage('Update Kubernetes Configuration') {
+        stage('Update Kubernetes Configuration..') {
                     steps {
                         script {
                             // kustomize를 사용하여 Kubernetes 구성 업데이트
