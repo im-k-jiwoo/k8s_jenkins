@@ -15,6 +15,8 @@ pipeline {
         GIT_CREDENTIALS_ID = 'jenkins-git-access'
     }
 
+
+
     stages {
         stage('Checkout') {
             steps {
