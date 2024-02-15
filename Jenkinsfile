@@ -23,7 +23,7 @@ pipeline {
                 checkout scm
             }
         }
-        stage('SonarQube Analysis..') {
+        stage('SonarQube Analysis...') {
             steps {
                 script {
                     def scannerHome = tool 'sonarqube_scanner'
