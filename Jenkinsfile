@@ -15,6 +15,8 @@ pipeline {
         GIT_CREDENTIALS_ID = 'jenkins-git-access'
     }
 
+    
+
     stages {
         stage('Checkout...') {
             steps {
@@ -31,7 +33,10 @@ pipeline {
                 }
             }
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5b81279855bb18f98042030b0a590d8549ad30e7
         stage('Build and Push Docker Image to ACR..') {
             steps {
                 script {
