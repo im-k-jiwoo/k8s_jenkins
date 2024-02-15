@@ -15,14 +15,28 @@ pipeline {
         GIT_CREDENTIALS_ID = 'jenkins-git-access'
     }
 
+    
 
     stages {
-        stage('Checkout') {
+        stage('Checkout...') {
             steps {
                 checkout scm
             }
         }
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    def scannerHome = tool 'sonarqube_scanner'
+                    withSonarQubeEnv('SonarQubeServer') {
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
+                }
+            }
+        }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5b81279855bb18f98042030b0a590d8549ad30e7
         stage('Build and Push Docker Image to ACR..') {
             steps {
                 script {
