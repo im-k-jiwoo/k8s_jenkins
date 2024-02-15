@@ -15,10 +15,8 @@ pipeline {
         GIT_CREDENTIALS_ID = 'jenkins-git-access'
     }
 
-
-
     stages {
-        stage('Checkout') {
+        stage('Checkout...') {
             steps {
                 checkout scm
             }
