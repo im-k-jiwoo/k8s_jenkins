@@ -21,15 +21,12 @@ pipeline {
             }
         }
 
-        stage('Vulnerability Scan - Docker Trivy') {
-            steps {
-                withCredentials([string(credentialsId: 'goodbird', variable: 'goodbird')]) {
-                    sh "chmod +x trivy-image-scan.sh" // Ensure the script is executable
-                    sh "sed -i 's#token_github#${TRIVY_GITHUB_TOKEN}#g' trivy-image-scan.sh"
-                    sh "sudo bash trivy-image-scan.sh"
-                }
-            }
-        }
+                  stage('Trivy Security') {
+                      steps {
+                          sh 'chmod +x trivy-image-scan.sh' // 스크립트에 실행 권한 추가
+                          sh './trivy-image-scan.sh' // Trivy 이미지 스캔 실행
+                      }
+                  }
 
         stage('SonarQube Analysis..') {
             steps {
