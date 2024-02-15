@@ -13,6 +13,7 @@ pipeline {
         TAG = "${TAG_VERSION}${env.BUILD_ID}"
         NAMESPACE = 'front'
         GIT_CREDENTIALS_ID = 'jenkins-git-access'
+        TRIVY_GITHUB_TOKEN = credentials('goodbird')
     }
 
     
@@ -23,6 +24,19 @@ pipeline {
                 checkout scm
             }
         }
+
+    stages {
+        stage('Vulnerability Scan - Docker Trivy') {
+          steps {
+            withCredentials([string(credentialsId: 'trivy_github_token', variable: 'TRIVY_GITHUB_TOKEN')]) {
+              sh "chmod +x trivy-image-scan.sh" // Ensure the script is executable
+              sh "sed -i 's#token_github#${TRIVY_GITHUB_TOKEN}#g' trivy-image-scan.sh"
+              sh "sudo bash trivy-image-scan.sh"
+            }
+          }
+        }
+      }
+
         stage('SonarQube Analysis') {
             steps {
                 script {
