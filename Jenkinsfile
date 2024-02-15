@@ -35,7 +35,7 @@ pipeline {
                 }
             }
         }
-        stage('Build and Push Docker Image to ACR..') {
+        stage('Build and Push Docker Image to ACR') {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'acr-credential-id', passwordVariable: 'ACR_PASSWORD', usernameVariable: 'ACR_USERNAME')]) {
