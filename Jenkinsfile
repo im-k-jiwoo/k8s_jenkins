@@ -12,7 +12,6 @@ pipeline {
         TAG_VERSION = "v1.0.Beta"
         TAG = "${TAG_VERSION}${env.BUILD_ID}"
         NAMESPACE = 'front'
-        GIT_CREDENTIALS_ID = 'goodbird'
     }
 
     stages {
@@ -24,7 +23,7 @@ pipeline {
 
         stage('Vulnerability Scan - Docker Trivy') {
             steps {
-                withCredentials([string(credentialsId: 'trivy_github_token', variable: 'TRIVY_GITHUB_TOKEN')]) {
+                withCredentials([string(credentialsId: 'goodbird', variable: 'goodbird')]) {
                     sh "chmod +x trivy-image-scan.sh" // Ensure the script is executable
                     sh "sed -i 's#token_github#${TRIVY_GITHUB_TOKEN}#g' trivy-image-scan.sh"
                     sh "sudo bash trivy-image-scan.sh"
