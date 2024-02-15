@@ -12,7 +12,10 @@ pipeline {
         TAG_VERSION = "v1.0.Beta"
         TAG = "${TAG_VERSION}${env.BUILD_ID}"
         NAMESPACE = 'front'
+        GIT_CREDENTIALS_ID = 'jenkins-git-access'
     }
+
+
 
     stages {
         stage('Checkout') {
@@ -20,7 +23,6 @@ pipeline {
                 checkout scm
             }
         }
-
         stage('SonarQube Analysis..') {
             steps {
                 script {
@@ -32,12 +34,12 @@ pipeline {
             }
         }
 
-         stage('Trivy Security') {
-                              steps {
-                                  sh 'chmod +x trivy-image-scan.sh' // 스크립트에 실행 권한 추가
-                                  sh './trivy-image-scan.sh' // Trivy 이미지 스캔 실행
-                              }
-                          }
+        stage('Trivy Security') {
+                                      steps {
+                                          sh 'chmod +x trivy-image-scan.sh' // 스크립트에 실행 권한 추가
+                                          sh './trivy-image-scan.sh' // Trivy 이미지 스캔 실행
+                                      }
+                                  }
 
         stage('Build and Push Docker Image to ACR..') {
             steps {
@@ -54,28 +56,25 @@ pipeline {
                 }
             }
         }
-
         stage('Checkout GitOps') {
-            steps {
-                // 'front_gitops' 저장소에서 파일들을 체크아웃합니다.
-                git branch: 'main',
-                    credentialsId: 'jenkins-git-access',
-                    url: 'https://github.com/rlozi99/front_gitops'
-            }
-        }
-
-        stage('Update Kubernetes Configuration') {
-            steps {
-                script {
-                    // kustomize를 사용하여 Kubernetes 구성 업데이트
-                    // dir('gitops') 블록을 제거합니다.
-                    sh "kustomize edit set image ${CONTAINER_REGISTRY}/${REPO}=${CONTAINER_REGISTRY}/${REPO}:${TAG}"
-                    sh "git add ."
-                    sh "git commit -m 'Update image to ${TAG}'"
+                    steps {
+                        // 'front_gitops' 저장소에서 파일들을 체크아웃합니다.
+                        git branch: 'main',
+                            credentialsId: 'jenkins-git-access',
+                            url: 'https://github.com/rlozi99/front_gitops'
+                    }
                 }
-            }
-        }
-
+        stage('Update Kubernetes Configuration') {
+                    steps {
+                        script {
+                            // kustomize를 사용하여 Kubernetes 구성 업데이트
+                            // dir('gitops') 블록을 제거합니다.
+                            sh "kustomize edit set image ${CONTAINER_REGISTRY}/${REPO}=${CONTAINER_REGISTRY}/${REPO}:${TAG}"
+                            sh "git add ."
+                            sh "git commit -m 'Update image to ${TAG}'"
+                        }
+                    }
+                }
         stage('Push Changes to GitOps Repository') {
             steps {
                 script {
@@ -89,7 +88,7 @@ pipeline {
                         sh "git pull --rebase origin main"
                         def remote = "https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/JoEunSae/front-end.git"
                         // 원격 저장소에 푸시
-                        sh "git push ${remote} main"
+                        sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/rlozi99/front_gitops.git main"
                     }
                 }
             }
