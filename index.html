@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
 
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 </head>
@@ -41,14 +42,17 @@
                 <button type="button" class="login-button" onclick="submitForm()"><i class="fa fa-chevron-right"></i></button>
             </div>
             <div class="etc-login-form">
-                <p>회원이 아니신가욘?&nbsp <a href="join.html"><b>회원가입</b></a></p>
+                <p>회원이 아니신가요?&nbsp <a href="join.html"><b>회원가입</b></a></p>
             </div>
         </form>
     </div>
 </div>
 
+
 <script>
-    const serverUrl = "http://localhost:8080/login"; // 백엔드 서버 주소로 변경
+    const serverUrl = "back-end-service.back.svc.cluster.local:80/login"; // 백엔드 서버 주소로 변경
+
+
 
     async function submitForm() {
         const id = document.getElementById("id").value;
