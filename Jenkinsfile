@@ -23,12 +23,12 @@ pipeline {
                 checkout scm
             }
         }
-        stage('SonarQube Analysis') {
+        stage('SonarQube Analysis..') {
             steps {
                 script {
                     def scannerHome = tool 'sonarqube_scanner'
                     withSonarQubeEnv('SonarQubeServer') {
-                        sh "${scannerHome}/bin/sonar-scanner"
+                        sh "/home/azureuser/sonar-scanner/bin/sonar-scanner"
                     }
                 }
             }
