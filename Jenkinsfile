@@ -15,7 +15,7 @@ pipeline {
         GIT_CREDENTIALS_ID = 'jenkins-git-access'
     }
 
-    
+
 
     stages {
         stage('Checkout') {
@@ -23,17 +23,19 @@ pipeline {
                 checkout scm
             }
         }
-        stage('SonarQube Analysis..') {
-            steps {
-                script {
-                    def scannerHome = tool 'sonarqube_scanner'
-                    withSonarQubeEnv('SonarQubeServer') {
-                        sh "/home/azureuser/sonar-scanner/bin/sonar-scanner"
-                    }
-                }
-            }
-        }
-        stage('Build and Push Docker Image to ACR..') {
+
+        // stage('SonarQube Analysis') {
+        //     steps {
+        //         script {
+        //             def scannerHome = tool 'sonarqube_scanner'
+        //             withSonarQubeEnv('SonarQubeServer') {
+        //                 // SonarScanner 실행 명령에 -X 옵션 추가
+        //                 sh "${scannerHome}/bin/sonar-scanner -X"
+        //             }
+        //         }
+        //     }
+        // }
+        stage('Build and Push Docker Image to ACR') {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'acr-credential-id', passwordVariable: 'ACR_PASSWORD', usernameVariable: 'ACR_USERNAME')]) {
@@ -56,7 +58,7 @@ pipeline {
                             url: 'https://github.com/rlozi99/front_gitops'
                     }
                 }
-        stage('Update Kubernetes Configuration') {
+        stage('Update Kubernetes Configuration..') {
                     steps {
                         script {
                             // kustomize를 사용하여 Kubernetes 구성 업데이트
