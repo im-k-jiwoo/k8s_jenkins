@@ -36,14 +36,14 @@ pipeline {
         //     }
         // }
 
-<<<<<<< HEAD
+
         // stage('Trivy Security') {
         //     steps {
         //         sh 'chmod +x trivy-image-scan.sh' // 스크립트에 실행 권한 추가
         //         sh './trivy-image-scan.sh' // Trivy 이미지 스캔 실행
         //     }
         // }
-=======
+
 
         stage('Trivy Security') {
             steps {
@@ -51,7 +51,7 @@ pipeline {
                 sh './trivy-image-scan.sh' // Trivy 이미지 스캔 실행
             }
         }
->>>>>>> 6e688116c3033a6d8b6313ddee9f8fb66108ce70
+
 
         stage('Build and Push Docker Image to ACR') {
             steps {
