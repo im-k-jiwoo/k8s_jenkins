@@ -35,8 +35,6 @@ pipeline {
         //         }
         //     }
         // }
-
-
         stage('Build and Push Docker Image to ACR') {
             steps {
                 script {
@@ -46,7 +44,7 @@ pipeline {
 
                         // Build and push Docker image to ACR
                         // 변경: 이미지 이름을 $CONTAINER_REGISTRY/$IMAGE_NAME으로 수정
-                        sh "docker build --no-cache -t $CONTAINER_REGISTRY/$REPO:$TAG ."
+                        sh "docker build -t $CONTAINER_REGISTRY/$REPO:$TAG ."
                         sh "docker push $CONTAINER_REGISTRY/$REPO:$TAG"
                     }
                 }
