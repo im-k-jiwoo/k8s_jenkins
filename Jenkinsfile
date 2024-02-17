@@ -41,9 +41,10 @@ pipeline {
                 sh './trivy-image-scan.sh' // Trivy 이미지 스캔 실행
             }
         }
-        stage('Build and Push Docker Image to ACR') {
+        stage('Build and Push Docker Image to ACR..') {
             steps {
                 script {
+                    
                     withCredentials([usernamePassword(credentialsId: 'acr-credential-id', passwordVariable: 'ACR_PASSWORD', usernameVariable: 'ACR_USERNAME')]) {
                         // Log in to ACR
                         sh "az acr login --name $CONTAINER_REGISTRY --username $ACR_USERNAME --password $ACR_PASSWORD"
