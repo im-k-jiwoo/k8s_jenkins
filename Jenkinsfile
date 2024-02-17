@@ -44,7 +44,7 @@ pipeline {
         stage('Build and Push Docker Image to ACR') {
             steps {
                 script {
-                    sh "sudo systemctl status docker"
+                    
                     withCredentials([usernamePassword(credentialsId: 'acr-credential-id', passwordVariable: 'ACR_PASSWORD', usernameVariable: 'ACR_USERNAME')]) {
                         // Log in to ACR
                         sh "az acr login --name $CONTAINER_REGISTRY --username $ACR_USERNAME --password $ACR_PASSWORD"
