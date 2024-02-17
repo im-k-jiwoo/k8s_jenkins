@@ -1,10 +1,8 @@
 ## Docker 이미지 이름
-dockerImageName="medicine/front:latest"
-
-# Trivy 이미지 스캔 실행
+dockerImageName="medicine/back:latest"
+## Trivy 이미지 스캔 실행
 docker run --rm -v $WORKSPACE:/root/.cache/ -e TRIVY_GITHUB_TOKEN="$TRIVY_GITHUB_TOKEN" aquasec/trivy:0.17.2 -q image --exit-code 1 --severity CRITICAL --light $dockerImageName
-#
-# Trivy 스캔 결과 처리
+## Trivy 스캔 결과 처리
 exit_code=$?
 echo "종료 코드: $exit_code"
 #
