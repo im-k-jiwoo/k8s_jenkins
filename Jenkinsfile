@@ -36,12 +36,22 @@ pipeline {
         //     }
         // }
 
+<<<<<<< HEAD
         // stage('Trivy Security') {
         //     steps {
         //         sh 'chmod +x trivy-image-scan.sh' // 스크립트에 실행 권한 추가
         //         sh './trivy-image-scan.sh' // Trivy 이미지 스캔 실행
         //     }
         // }
+=======
+
+        stage('Trivy Security') {
+            steps {
+                sh 'chmod +x trivy-image-scan.sh' // 스크립트에 실행 권한 추가
+                sh './trivy-image-scan.sh' // Trivy 이미지 스캔 실행
+            }
+        }
+>>>>>>> 6e688116c3033a6d8b6313ddee9f8fb66108ce70
 
         stage('Build and Push Docker Image to ACR') {
             steps {
@@ -52,7 +62,7 @@ pipeline {
 
                         // Build and push Docker image to ACR
                         // 변경: 이미지 이름을 $CONTAINER_REGISTRY/$IMAGE_NAME으로 수정
-                        sh "docker build -t $CONTAINER_REGISTRY/$REPO:$TAG ."
+                        sh "docker build --no-cache -t $CONTAINER_REGISTRY/$REPO:$TAG ."
                         sh "docker push $CONTAINER_REGISTRY/$REPO:$TAG"
                     }
                 }
