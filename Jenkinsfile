@@ -36,6 +36,7 @@ pipeline {
         //     }
         // }
 
+        //
         /* stage('Trivy Security') {
             steps {
                 sh 'chmod +x trivy-image-scan.sh' // 스크립트에 실행 권한 추가
