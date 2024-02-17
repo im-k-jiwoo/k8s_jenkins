@@ -41,7 +41,7 @@ pipeline {
                 sh './trivy-image-scan.sh' // Trivy 이미지 스캔 실행
             }
         }
-        stage('Build and Push Docker Image to ACR') {
+        stage('Build and Push Docker Image to ACR..') {
             steps {
                 script {
                     
