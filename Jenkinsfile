@@ -24,17 +24,17 @@ pipeline {
             }
         }
 
-        // stage('SonarQube Analysis') {
-        //     steps {
-        //         script {
-        //             def scannerHome = tool 'sonarqube_scanner'
-        //             withSonarQubeEnv('SonarQubeServer') {
-        //                 // SonarScanner 실행 명령에 -X 옵션 추가
-        //                 sh "${scannerHome}/bin/sonar-scanner -X"
-        //             }
-        //         }
-        //     }
-        // }
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    def scannerHome = tool 'sonarqube_scanner'
+                    withSonarQubeEnv('SonarQubeServer') {
+                        // SonarScanner 실행 명령에 -X 옵션 추가
+                        sh "${scannerHome}/bin/sonar-scanner -X"
+                    }
+                }
+            }
+        }
         stage('Trivy Security') {
             steps {
                 sh 'chmod +x trivy-image-scan.sh' // 스크립트에 실행 권한 추가
