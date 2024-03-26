@@ -80,7 +80,7 @@
 
         try {
             // 백신 신청 API 호출
-            const response = await fetch(`${serverUrl}/vaccine`, {
+            const response = await fetch(`${serverUrl}/health-check`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
