@@ -1,3 +1,5 @@
+
+
 # 1. Nginx를 기본 이미지로 선택
 FROM nginx:latest
 
